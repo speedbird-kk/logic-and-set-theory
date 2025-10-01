@@ -9,6 +9,18 @@ import Relations.EquivalenceTest;
  * and define the relation in the constructor.
  * Use the .initSet(T... elements) to add all elements of your set.
  * Run .findEquivalenceClasses() to find all equivalence classes.
+ * 
+ * Initialise a new CartesianProduct object and define relation with generic types
+ * in constructor. Set both sets with .initA(K... elements) and .initB (V... elements)
+ * then use findCartesianProduct()
+ * 
+ * Initialise a new EquivalenceTest object with generic type
+ * and define the relation in the constructor.
+ * Use .initSet(T... elements) to add all elements of your set.
+ * .getRelationSet() gets the array of all relations R(x, y)
+ * .test() prints out if the relation is reflexive, symmetric and/or transitive.
+ * 
+ * See example uses below:
  */
 public class Main {
     public static void main(String[] args) {
