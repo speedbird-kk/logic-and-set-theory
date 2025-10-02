@@ -1,3 +1,5 @@
+package EquivalenceClass;
+
 import Relations.RelationOnSet;
 import java.util.HashSet;
 import java.util.Set;

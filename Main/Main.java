@@ -1,4 +1,8 @@
+package Main;
+
+import EquivalenceClass.EquivalenceClassGeneral;
 import Operators.CartesianProduct;
+import Operators.PowerSet;
 import Relations.EquivalenceTest;
 
 /**
@@ -57,5 +61,8 @@ public class Main {
 
         System.out.println("\n\nEquivalence classes for 'xRy iff x + y is even': "
             + ec3.findEquivalenceClasses());
+
+        PowerSet<Integer> powerSet = new PowerSet<>(1, 2, 3);
+        System.out.println(powerSet.findPowerSet());
     }
 }
