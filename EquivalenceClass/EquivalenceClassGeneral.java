@@ -21,12 +21,12 @@ public class EquivalenceClassGeneral<T> extends RelationOnSet<T> {
         Set<Set<T>> equivalenceClasses = new HashSet<>();
 
         // Find equivalence class for each element in the set
-        for (T a : super.getSet()) {
+        for (T a : set) {
             // equivalenceClass is K(a) for each a in the set
             Set<T> equivalenceClass = new HashSet<>();
 
             // Check for all x in the set if aRx since K(a) = {x ∈ set | aRx}
-            for (T x : super.getSet()) {
+            for (T x : set) {
                 if (hasRelation(a, x)) {
                     equivalenceClass.add(x);
                 }
@@ -37,9 +37,5 @@ public class EquivalenceClassGeneral<T> extends RelationOnSet<T> {
         }
 
         return equivalenceClasses;
-    }
-
-    private boolean hasRelation(T a, T x) {
-        return super.getRelation().test(a, x);
     }
 }

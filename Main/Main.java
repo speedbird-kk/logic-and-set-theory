@@ -1,9 +1,11 @@
 package Main;
 
 import EquivalenceClass.EquivalenceClassGeneral;
+import Mappings.Mapping;
 import Operators.CartesianProduct;
 import Operators.PowerSet;
 import Relations.EquivalenceTest;
+import java.util.stream.*;
 
 /**
  * Use this Main class for finding equivalence classes of general relations on a set.
@@ -64,5 +66,16 @@ public class Main {
 
         PowerSet<Integer> powerSet = new PowerSet<>(1, 2, 3);
         System.out.println(powerSet.findPowerSet());
+
+        Mapping<Integer> myMapping = new Mapping<>((x, y) -> y == x * x);
+        myMapping.initDomain(-2, -1, 0, 1, 2);
+        
+        // Use IntStream to initialise the codomain to all integers in a range.
+        myMapping.initCodomain(IntStream
+            .rangeClosed(0, 100)
+            .boxed()
+            .toArray(Integer[]::new));
+        
+        System.out.println(myMapping.isMapping());
     }
 }
