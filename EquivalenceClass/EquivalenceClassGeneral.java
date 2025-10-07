@@ -8,25 +8,25 @@ import java.util.function.BiPredicate;
 /**
  * Find all equivalence classes of a general set.
  */
-public class EquivalenceClassGeneral<T> extends RelationOnSet<T> {
-    public EquivalenceClassGeneral(BiPredicate<T, T> relation) {
+public class EquivalenceClassGeneral<A, B> extends RelationOnSet<A, B> {
+    public EquivalenceClassGeneral(BiPredicate<A, B> relation) {
         super(relation);
     }
 
     /**
      * Find all equivalence classes of a given set with a defined relation on the set.
      */
-    public Set<Set<T>> findEquivalenceClasses() {
+    public Set<Set<B>> findEquivalenceClasses() {
         // All equivalence classes
-        Set<Set<T>> equivalenceClasses = new HashSet<>();
+        Set<Set<B>> equivalenceClasses = new HashSet<>();
 
         // Find equivalence class for each element in the set
-        for (T a : set) {
+        for (A a : setA) {
             // equivalenceClass is K(a) for each a in the set
-            Set<T> equivalenceClass = new HashSet<>();
+            Set<B> equivalenceClass = new HashSet<>();
 
             // Check for all x in the set if aRx since K(a) = {x ∈ set | aRx}
-            for (T x : set) {
+            for (B x : setB) {
                 if (hasRelation(a, x)) {
                     equivalenceClass.add(x);
                 }

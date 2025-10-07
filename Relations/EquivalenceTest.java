@@ -6,11 +6,31 @@ import java.util.function.BiPredicate;
 /**
  * Finds if a relation on a set is reflexive, symmetric and/or transitive.
  */
-public class EquivalenceTest<T> extends RelationOnSet<T> {
-    public EquivalenceTest(BiPredicate<T, T> relation) {
+public class EquivalenceTest<A> extends RelationOnSet<A, A> {
+    public EquivalenceTest(BiPredicate<A, A> relation) {
         super(relation);
     }
 
+    /**
+     * Initialise both set A and B.
+     */
+    @SafeVarargs
+    public final void initSet(A... elements) {
+        super.initSetA(elements);
+        super.initSetB(elements);
+    }
+
+    @Deprecated
+    @Override
+    @SafeVarargs
+    public final void initSetB(A... elements) {
+        throw new UnsupportedOperationException("Equivalence test only sets one set A");
+    }
+
+    /**
+     * Tests and prints if a relation is reflexive, symmetric and/or transitive.
+     * Thus, if it is an equivalence relation or not.
+     */
     public void test() {
         boolean isReflexive = isReflexive();
         boolean isSymmetric = isSymmetric();
@@ -28,7 +48,7 @@ public class EquivalenceTest<T> extends RelationOnSet<T> {
     }
 
     private boolean isReflexive() {
-        for (T x : set) {
+        for (A x : setA) {
             if (relation.test(x, x)) {
                 return false;
             }
@@ -38,7 +58,7 @@ public class EquivalenceTest<T> extends RelationOnSet<T> {
     }
 
     private boolean isSymmetric() {
-        for (Pair<T, T> relation : relationSet) {
+        for (Pair<A, A> relation : relationSet) {
             if (!relationSet.contains(new Pair<>(relation.b(), relation.a()))) {
                 return false;
             }
@@ -48,8 +68,8 @@ public class EquivalenceTest<T> extends RelationOnSet<T> {
     }
 
     private boolean isTransitive() {
-        for (Pair<T, T> x : relationSet) {
-            for (Pair<T, T> z : relationSet) {
+        for (Pair<A, A> x : relationSet) {
+            for (Pair<A, A> z : relationSet) {
                 if (x.b() == z.a()) {
                     if (!relationSet.contains(new Pair<>(x.a(), z.b()))) {
                         return false;

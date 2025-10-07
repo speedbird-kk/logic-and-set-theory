@@ -9,38 +9,41 @@ import java.util.function.BiPredicate;
 /**
  * Abstract class for all classes dealing with a relation on a set.
  */
-public abstract class RelationOnSet<T> {
-    protected Set<T> set;
-    protected final BiPredicate<T, T> relation;
-    protected final Set<Pair<T, T>> relationSet = new HashSet<>();
+public abstract class RelationOnSet<A, B> {
+    protected final BiPredicate<A, B> relation;
+    protected final Set<Pair<A, B>> relationSet = new HashSet<>();
 
-    protected Set<T> domain;
-    protected Set<T> codomain;
+    protected Set<A> setA;
+    protected Set<B> setB;
 
-    public void initSet(@SuppressWarnings("unchecked") T... elements) {
-        this.set = new HashSet<>(Arrays.asList(elements));
+    public void initSetA(@SuppressWarnings("unchecked") A... elements) {
+        this.setA = new HashSet<>(Arrays.asList(elements));
     }
 
-    public void initDomain(@SuppressWarnings("unchecked") T... elements) {
-        this.domain = new HashSet<>(Arrays.asList(elements));
+    public void initSetB(@SuppressWarnings("unchecked") B... elements) {
+        this.setB = new HashSet<>(Arrays.asList(elements));
     }
 
-    public void initCodomain(@SuppressWarnings("unchecked") T... elements) {
-        this.codomain = new HashSet<>(Arrays.asList(elements));
-    }
-
-    public RelationOnSet(BiPredicate<T, T> relation) {
+    public RelationOnSet(BiPredicate<A, B> relation) {
         this.relation = relation;
+    }
+
+    protected Set<A> getFirstSet() {
+        return setA;
+    }
+
+    protected Set<B> getSecondSet() {
+        return setB;
     }
 
     /**
      * Gets the set of all relations R(x, y) for xRy.
      */
-    public Set<Pair<T, T>> getRelationSet() {
-        for (T x : set) {
-            for (T y : set) {
+    public Set<Pair<A, B>> getRelationSet() {
+        for (A x : getFirstSet()) {
+            for (B y : getSecondSet()) {
                 if (relation.test(x, y)) {
-                    Pair<T, T> r = new Pair<>(x, y);
+                    Pair<A, B> r = new Pair<>(x, y);
                     relationSet.add(r);
                 }
             }
@@ -49,7 +52,7 @@ public abstract class RelationOnSet<T> {
         return relationSet;
     }
 
-    protected boolean hasRelation(T x, T y) {
+    protected boolean hasRelation(A x, B y) {
         return relation.test(x, y);
     }
 }

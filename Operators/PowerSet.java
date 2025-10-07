@@ -54,4 +54,9 @@ public class PowerSet<T> {
 
         return powerSet;
     }
+
+    @SuppressWarnings("unchecked")
+    public Set<T>[] findPowerSetArray() {
+        return findPowerSet().toArray(new Set[0]);
+    }
 }
