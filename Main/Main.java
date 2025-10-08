@@ -73,7 +73,7 @@ public class Main {
             .boxed()
             .toArray(Integer[]::new));
         
-        System.out.println(myMapping.isMapping());
+        myMapping.test();
 
         // EXERCISe 18.1 xRy if y = l.c.m.(8, x)
         Mapping<Integer, Integer> lcmMapping = new Mapping<>((x, y) -> {
@@ -98,7 +98,7 @@ public class Main {
         Mapping<Integer, Double> half = new Mapping<>((x, y) -> y == x / 2.0);
         half.initDomain(1, 2, 3, 4, 5);
         half.initCodomain(0.5, 1.0, 1.5, 2.0, 2.5);
-        System.out.println(half.isMapping());
+        half.test();
         System.out.println(half.getRelationSet());
         System.out.println(half.image(1, 2, 3));
 
@@ -121,6 +121,14 @@ public class Main {
         f.initDomain(domain.findPowerSetArray());
         f.initCodomain(codomain.findPowerSetArray());
 
-        System.out.println(f.isMapping());
+        f.test();
+
+        Set<Integer> x1 = new HashSet<>(Arrays.asList(-1, 1, 2));
+        Set<Integer> x2 = new HashSet<>(Arrays.asList(-2, 1));
+        Set<Integer> y1 = new HashSet<>(Arrays.asList(1, 3));
+
+        // System.out.println(f.getRelationSet());
+        System.out.println("image: " + f.image(x1, x2));
+        System.out.println("source: " + f.source(y1));
     }
 }

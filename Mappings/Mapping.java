@@ -28,7 +28,7 @@ public class Mapping<A, B> extends RelationOnSet<A, B> {
     /**
      * Returns true if relation is a mapping and false otherwise.
      */
-    public boolean isMapping() {
+    private boolean isMapping() {
         for (A x : setA) {
             int count = 0;
 
@@ -51,9 +51,74 @@ public class Mapping<A, B> extends RelationOnSet<A, B> {
     }
 
     /**
+     * Returns true if the mapping is surjective and false otherwise.
+     */
+    private boolean isSurjective() {
+        for (B y : setB) {
+            boolean hasIncomingArrow = false;
+
+            for (A x : setA) {
+                if (hasRelation(x, y)) {
+                    hasIncomingArrow = true;
+                    break;
+                }
+            }
+
+            if (!hasIncomingArrow) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns true if the mapping is injective and false otherwise.
+     */
+    private boolean isInjective() {
+        for (B y : setB) {
+            int count = 0;
+
+            for (A x : setA) {
+                if (hasRelation(x, y)) {
+                    count++;
+                }
+
+                if (count > 1) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public void test() {
+        boolean isMapping = isMapping();
+        boolean isSurjective = isSurjective();
+        boolean isInjective = isInjective();
+        boolean isBijective = isSurjective && isInjective;
+
+        String mapping = isMapping ? "a mapping" : "not a mapping";
+        String surjective = isSurjective ? "surjective" : "not surjective";
+        String injective = isInjective ? "injective" : "not injective";
+        String bijective = isBijective ? "bijective" : "not bijective";
+
+        System.out.println("The relation is " + mapping
+            + ". Moreover, it is " + surjective
+            + " and " + injective
+            + ". Therefore, it is " + bijective + ".");
+    }
+
+    /**
      * Evaluate the image of f under subdomain A'.
      */
-    public Set<B> image(@SuppressWarnings("unchecked") A... subDomainElements) {
+    @SafeVarargs
+    public final Set<B> image(A... subDomainElements) {
+        if (relationSet.isEmpty()) {
+            getRelationSet();
+        }
+
         Set<A> subDomain = new HashSet<>(Arrays.asList(subDomainElements));
         Set<B> image = new HashSet<>();
 
@@ -71,7 +136,12 @@ public class Mapping<A, B> extends RelationOnSet<A, B> {
     /**
      * Evaluate the source of subset of codomain B' on under f.
      */
-    public Set<A> source(@SuppressWarnings("unchecked") B... subCodomainElements) {
+    @SafeVarargs
+    public final Set<A> source(B... subCodomainElements) {
+        if (relationSet.isEmpty()) {
+            getRelationSet();
+        }
+
         Set<B> subCodomain = new HashSet<>(Arrays.asList(subCodomainElements));
         Set<A> source = new HashSet<>();
 
