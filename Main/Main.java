@@ -49,9 +49,9 @@ public class Main {
         ec2.initSet(-4, -3, -2, -1, 0, 1, 2, 3, 4);
         System.out.println(ec2.findEquivalenceClasses());
 
-        CartesianProduct<Integer, Integer> cp = new CartesianProduct<>();
+        CartesianProduct<Integer, String> cp = new CartesianProduct<>();
         cp.initA(0, 1);
-        cp.initB(3, 5, 7);
+        cp.initB("a", "b", "c");
         System.out.println(cp.findCartesianProduct());
 
         EquivalenceTest<Integer> et =
