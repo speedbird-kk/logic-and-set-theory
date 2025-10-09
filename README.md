@@ -11,9 +11,7 @@ Helper classes and methods for calculating various operations and testing proper
 - Find the image of a mapping on a subdomain.
 - Find the source of a mapping on a subcodomain.
 
-## Manual
-
-### Table of Contents
+## Table of Contents
 - [Getting started](#getting-started)
 - [Cartesian product](#cartesian-product)
 - [Power sets](#power-sets)
