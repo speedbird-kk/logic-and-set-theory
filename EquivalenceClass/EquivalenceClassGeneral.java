@@ -1,6 +1,8 @@
 package EquivalenceClass;
 
 import Relations.RelationOnSet;
+
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiPredicate;
@@ -33,7 +35,9 @@ public class EquivalenceClassGeneral<A, B> extends RelationOnSet<A, B> {
             }
 
             // Add K(a) to the set of all equivalence classes
-            equivalenceClasses.add(equivalenceClass);
+            if (!equivalenceClass.equals(Collections.EMPTY_SET)) {
+                equivalenceClasses.add(equivalenceClass);
+            }
         }
 
         return equivalenceClasses;

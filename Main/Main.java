@@ -147,5 +147,25 @@ public class Main {
         ecpow.initSetB(codomain.findPowerSetArray());
 
         System.out.println(ecpow.findEquivalenceClasses());
+
+        EquivalenceClassGeneral<Set<Integer>, Set<Integer>> ecg
+            = new EquivalenceClassGeneral<>((setA, setB) -> {
+
+                Set<Integer> setAUnion0 = new HashSet<>(setA);
+                Set<Integer> setBUnion0 = new HashSet<>(setB);
+
+                setAUnion0.add(0);
+                setBUnion0.add(0);
+
+                return setAUnion0.equals(setBUnion0);
+            });
+        
+        PowerSet<Integer> posetA = new PowerSet<>(0, 1, 2);
+        PowerSet<Integer> posetB = new PowerSet<>(0, 1);
+
+        ecg.initSetA(posetA.findPowerSetArray());
+        ecg.initSetB(posetB.findPowerSetArray());
+
+        System.out.println(ecg.findEquivalenceClasses());
     }
 }
