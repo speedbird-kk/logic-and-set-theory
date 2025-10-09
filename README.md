@@ -48,8 +48,8 @@ To find the power set of a given set, first instantiate a `PowerSet` object with
 
 For example, to find the power set of the set {1, 2, 3}:
 ```java
-PowerSet<Integer> powerSet = new PowerSet<>(1, 2, 3);
-System.out.println(powerSet.findPowerSet());
+PowerSet<Integer> ps = new PowerSet<>(1, 2, 3);
+System.out.println(ps.findPowerSet());
 ```
 
 Output:
