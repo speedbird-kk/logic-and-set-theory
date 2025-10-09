@@ -21,6 +21,8 @@ Helper classes and methods for calculating various operations and testing proper
 - [Mapping tests](#mapping-tests)
 - [Image and source](#image-and-source)
 
+## Manual
+
 ### Getting started
 
 It is recommended to download this repository as a ZIP file, extract the ZIP file and open the folder on your IDE of choice. All helper classes and methods can be run from the main method in Main.java. It is also advisable to look at the source code for each of the helper classes and methods, as it can possibly give useful insights into each of the concepts. If you spot any mistakes in the code or have any suggestions, please send an email to la.anaheim.halos@gmail.com.
