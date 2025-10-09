@@ -58,8 +58,8 @@ public class Main {
             new EquivalenceTest<>((a, x) -> (a - x) % 3 == 0);
         
         et.initSet(-2, -1, 0, 1, 2);
-        System.out.println(et.getRelationSet());
         et.test();
+        System.out.println(et.getRelationSet());
 
         PowerSet<Integer> powerSet = new PowerSet<>(1, 2, 3);
         System.out.println(powerSet.findPowerSet());
@@ -95,6 +95,7 @@ public class Main {
 
         System.out.println(lcmMapping.getRelationSet());
 
+        System.out.println("\n\nHALF TEST");
         Mapping<Integer, Double> half = new Mapping<>((x, y) -> y == x / 2.0);
         half.initDomain(1, 2, 3, 4, 5);
         half.initCodomain(0.5, 1.0, 1.5, 2.0, 2.5);

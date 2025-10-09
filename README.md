@@ -5,8 +5,8 @@ Helper classes and methods for calculating various operations and testing proper
 ## Features
 - Evaluate the cartesian product of two sets.
 - Evaluate the power set of a set.
-- Find all equivalence classes of a relation on one or two sets.
 - Test a relation for reflexivity, symmetricity, transitivity and equivalence.
+- Find all equivalence classes of a relation on one or two sets.
 - Test a mapping for surjection, injection and bijection.
 - Find the image of a mapping on a subdomain.
 - Find the source of a mapping on a subcodomain.
@@ -45,9 +45,33 @@ System.out.println(powerSet.findPowerSet());
 Output:
 `[[], [1], [2], [1, 2], [3], [1, 3], [2, 3], [1, 2, 3]]`
 
+### Relation test for equivalence
+
+To test whether a given relation on a given set is reflexive, symmetric, transitive and/or an equivalence relation, first instantiate an `EquivalenceTest` object with the type of elements of the set the relation is on and define the relation using a lambda expression in the constructor. Then, use `.initSet()` to initialise the set the relation is on with variable arguments listing all elements of the set. Call the method `.test()` to find if the relation is reflexive, symmetric, transitive and/or an equivalence relation.
+
+For example, to test the relation ≡ (mod 3) on the set {-2, -1, 0, 1, 2}:
+```java
+EquivalenceTest<Integer> et =
+    new EquivalenceTest<>((a, x) -> (a - x) % 3 == 0);
+
+et.initSet(-2, -1, 0, 1, 2);
+et.test();
+```
+
+Output:
+`The relation is reflexive, symmetric, and transitive. Hence it is an equivalence relation.`
+
+Moreover, it is also possible to list all the pairs R(a, x) for a relation. Use the `.getRelationSet()` method for this:
+```java
+System.out.println(et.getRelationSet());
+```
+
+Output:
+`[(0, 0), (1, 1), (2, 2), (-1, 2), (-2, 1), (1, -2), (2, -1), (-1, -1), (-2, -2)]`
+
 ### Equivalence classes
 
-There are two separate classes for finding all equivalence classes of a given relation on a given set. Firstly, to find all equivalence classes of a simple relation on one set A (ie. set of relations R is a subset of A x A where A is a set containing elements), use the `EquivalenceClass` class with one type and define the relation as a bi-predicate lambda expression in the constructor. Then, initialise the set A with `initSet()` taking variable arguments of the type, and use `findEquivalenceClasses()` to get all the equivalence classes.
+There are two separate classes for finding all equivalence classes of a given relation on a given set. Firstly, to find all equivalence classes of a simple relation on one set A (ie. set of relations R is a subset of A x A where A is a set containing elements), use the `EquivalenceClass` class with one type and define the relation as a bi-predicate lambda expression in the constructor. Then, initialise the set A with `.initSet()` taking variable arguments of the type, and use `.findEquivalenceClasses()` to get all the equivalence classes.
 
 For example, to print the equivalence classes of the relation ≡ (mod 3) on the set {-3, -2, -1, 0, 1, 2, 3}:
 ```java
@@ -61,7 +85,7 @@ System.out.println(ec.findEquivalenceClasses());
 Output:
 `[[0, -3, 3], [-2, 1], [-1, 2]]`
 
-Secondly, it is possible to define more complex relations on two sets or relations on two power sets. For this, use the `EquivalenceClassGeneral` class. When instantialising it, define types of elements for set A and set B for a relation on A x B. Define the relation as a lambda expression in the constructor. If it is a relation on power sets, define the type to be `<Set<T>, Set<T>>`. To set the elements of each set A and B, use `initSetA()` and `initSetB()` respectively, each taking variable arguments of the type. However, if the relation is on power sets, it is recommended to first use two `PowerSet` instances (refer to section on power sets) to define P(A) and P(B). Importantly, since `initSetA()` and `initSetB()` takes variable arguments rather than a `Set`, it is necessary to pass in `.findPowerSetArray()` into `initSetA()` and `initSetB()` rather than `findPowerSet()`, as the former converts the `Set` into a regular array. Please refer to the example below.
+Secondly, it is possible to define more complex relations on two sets or relations on two power sets. For this, use the `EquivalenceClassGeneral` class. When instantialising it, define types of elements for set A and set B for a relation on A x B. Define the relation as a lambda expression in the constructor. If it is a relation between sets, define the type to be `<Set<A>, Set<B>>`, where A, B are the types of the elements of either set. To set the elements of each set A and B, use `.initSetA()` and `.initSetB()` respectively, each taking variable arguments of the type. However, if the relation is on power sets, it is recommended to first use two `PowerSet` instances (refer to section on power sets) to define P(A) and P(B). Importantly, since `.initSetA()` and `.initSetB()` takes variable arguments rather than a `Set`, it is necessary to pass in `.findPowerSetArray()` into `.initSetA()` and `.initSetB()` rather than `.findPowerSet()`, as the former converts the `Set` into a regular array. Please refer to the example below.
 
 Here, we instantiate an `EquivalenceClassGeneral` object and define the relation between sets (relation on power set) such that R(A, B) if and only if A ∪ {0} = B ∪ {0}.
 ```java
@@ -97,3 +121,14 @@ System.out.println(ecg.findEquivalenceClasses());
 Output:
 `[[[], [0]], [[1], [0, 1]]]`
 
+### Mapping tests
+
+To test whether a relation is a mapping or not, and if a mapping is surjective, injective and/or bijective, use the `Mapping` class which takes two types, each being the type for the elements in the domain and codomain respectively. Define the mapping the same way as a relation using a lambda expression in the constructor. Use `.initDomain` to add elements to the domain with variable arguments, and similarly for `.initCodomain`. Call the method `.test()` to print the conclusion of the tests.
+
+For example, for the mapping f: A -> B for all x ∈ A
+```java
+Mapping<Integer, Double> half = new Mapping<>((x, y) -> y == x / 2.0);
+        half.initDomain(1, 2, 3, 4, 5);
+        half.initCodomain(0.5, 1.0, 1.5, 2.0, 2.5);
+        half.test();
+```
