@@ -130,5 +130,22 @@ public class Main {
         // System.out.println(f.getRelationSet());
         System.out.println("image: " + f.image(x1, x2));
         System.out.println("source: " + f.source(y1));
+
+        Mapping<Integer, Integer> halff = new Mapping<>(x -> x / 2);
+
+        halff.initDomain(2, 4, 6);
+        halff.initCodomain(1, 2, 3, 4);
+
+        System.out.println(halff.image(3, 4));
+        System.out.println(halff.source(2));
+        System.out.println(halff.getRelationSet());
+
+        EquivalenceClassGeneral<Set<Integer>, Set<Integer>> ecpow
+            = new EquivalenceClassGeneral<>((setX, setY) -> setX.equals(setY));
+    
+        ecpow.initSetA(domain.findPowerSetArray());
+        ecpow.initSetB(codomain.findPowerSetArray());
+
+        System.out.println(ecpow.findEquivalenceClasses());
     }
 }

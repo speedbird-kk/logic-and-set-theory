@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiPredicate;
+import java.util.function.Function;
+
+import EquivalenceClass.EquivalenceClassGeneral;
 
 /**
  * Defines a mapping f: A -> B.
@@ -13,6 +16,10 @@ import java.util.function.BiPredicate;
 public class Mapping<A, B> extends RelationOnSet<A, B> {
     public Mapping(BiPredicate<A, B> relation) {
         super(relation);
+    }
+
+    public Mapping(Function<A, B> f) {
+        super((x, y) -> f.apply(x).equals(y));
     }
 
     @SafeVarargs
