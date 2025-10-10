@@ -2,6 +2,8 @@
 
 Helper classes and methods for calculating various operations and testing properties related to sets, relations and mappings.
 
+DISCLAIMER: This program is based on the course Logic and Set Theory 2IT60 in its features and concepts, however it is not an official part of the course. The program may contain mistakes.
+
 ## Features
 - Evaluate the cartesian product of two sets.
 - Evaluate the power set of a set.
