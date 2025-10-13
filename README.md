@@ -2,7 +2,9 @@
 
 Helper classes and methods for calculating various operations and testing properties related to sets, relations and mappings.
 
-DISCLAIMER: This program is based on the course Logic and Set Theory 2IT60 in its features and concepts, however it is not an official part of the course. The program may contain mistakes.
+**DISCLAIMER:** This program is based on the course Logic and Set Theory 2IT60 in its features and concepts, however it is not an official part of the course. The program may contain mistakes.
+
+**NOTE (13/10):** Equivalence classes are defined on equivalence relations which are only defined for relations on A (ie. R a subset of A x A). Currently the program allows R on A x B for equivalence classes with no check for equivalence. This will be fixed soon. Feature to find only the equivalence class of a specific element instead of all equivalence classes will also be added soon.
 
 ## Features
 - Evaluate the cartesian product of two sets.

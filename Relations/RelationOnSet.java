@@ -52,6 +52,16 @@ public abstract class RelationOnSet<A, B> {
         return relationSet;
     }
 
+    protected boolean checkEquivalence() {
+        if (relationSet.isEmpty()) {
+            getRelationSet();
+        }
+
+        
+
+        return true;
+    }
+
     protected boolean hasRelation(A x, B y) {
         return relation.test(x, y);
     }

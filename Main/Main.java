@@ -15,5 +15,9 @@ import Relations.EquivalenceTest;
 public class Main {
     public static void main(String[] args) {
         //Write your code here.
+
+        EquivalenceTest<Integer> et = new EquivalenceTest<>((x, y) -> y == x + 3);
+        et.initSet(8, 9, 10, 11, 12, 13, 14, 15);
+        et.test();
     }
 }
