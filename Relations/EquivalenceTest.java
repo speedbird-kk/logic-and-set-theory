@@ -1,5 +1,7 @@
 package Relations;
 
+import Exceptions.CannotInitialiseSeparateSetsException;
+import Exceptions.NotEquivalenceRelationException;
 import Operators.Pair;
 import java.util.function.BiPredicate;
 
@@ -14,8 +16,9 @@ public class EquivalenceTest<A> extends RelationOnSet<A, A> {
     /**
      * Initialise both set A and B.
      */
-    @SafeVarargs
-    public final void initSet(A... elements) {
+    public void initSet(@SuppressWarnings("unchecked") A... elements)
+        throws CannotInitialiseSeparateSetsException, NotEquivalenceRelationException {
+
         super.initSetA(elements);
         super.initSetB(elements);
     }
@@ -23,8 +26,15 @@ public class EquivalenceTest<A> extends RelationOnSet<A, A> {
     @Deprecated
     @Override
     @SafeVarargs
-    public final void initSetB(A... elements) {
-        throw new UnsupportedOperationException("Equivalence test only sets one set A");
+    public final void initSetB(A... elements) throws CannotInitialiseSeparateSetsException {
+        throw new CannotInitialiseSeparateSetsException("Use .initSet() to initialise both sets.");
+    }
+
+    @Deprecated
+    @Override
+    @SafeVarargs
+    public final void initSetA(A... elements) throws CannotInitialiseSeparateSetsException {
+        throw new CannotInitialiseSeparateSetsException("Use .initSet() to initialise both sets.");
     }
 
     /**
@@ -87,5 +97,9 @@ public class EquivalenceTest<A> extends RelationOnSet<A, A> {
         }
 
         return true;
+    }
+
+    protected boolean checkEquivalence() {
+        return isReflexive() && isSymmetric() && isTransitive();
     }
 }

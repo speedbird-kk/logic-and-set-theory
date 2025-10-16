@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.function.BiPredicate;
 
+import Exceptions.CannotInitialiseSeparateSetsException;
+
 /**
  * Abstract class for all classes dealing with a relation on a set.
  */
@@ -16,11 +18,21 @@ public abstract class RelationOnSet<A, B> {
     protected Set<A> setA;
     protected Set<B> setB;
 
-    public void initSetA(@SuppressWarnings("unchecked") A... elements) {
+    /**
+     * Initialises set A separately unless for equivalence relations.
+     */
+    public void initSetA(@SuppressWarnings("unchecked") A... elements) 
+        throws CannotInitialiseSeparateSetsException {
+
         this.setA = new HashSet<>(Arrays.asList(elements));
     }
 
-    public void initSetB(@SuppressWarnings("unchecked") B... elements) {
+    /**
+     * Initialises set B separately unless for equivalence relations.
+     */
+    public void initSetB(@SuppressWarnings("unchecked") B... elements)
+        throws CannotInitialiseSeparateSetsException {
+            
         this.setB = new HashSet<>(Arrays.asList(elements));
     }
 
@@ -50,16 +62,6 @@ public abstract class RelationOnSet<A, B> {
         }
 
         return relationSet;
-    }
-
-    protected boolean checkEquivalence() {
-        if (relationSet.isEmpty()) {
-            getRelationSet();
-        }
-
-        
-
-        return true;
     }
 
     protected boolean hasRelation(A x, B y) {

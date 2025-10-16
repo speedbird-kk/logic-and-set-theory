@@ -8,8 +8,6 @@ import java.util.Set;
 import java.util.function.BiPredicate;
 import java.util.function.Function;
 
-import EquivalenceClass.EquivalenceClassGeneral;
-
 /**
  * Defines a mapping f: A -> B.
  */

@@ -1,11 +1,16 @@
 package Main;
 
 import EquivalenceClass.EquivalenceClass;
-import EquivalenceClass.EquivalenceClassGeneral;
+import Exceptions.CannotInitialiseSeparateSetsException;
+import Exceptions.ElementNotFoundException;
+import Exceptions.NotEquivalenceRelationException;
+import EquivalenceClass.EquivalenceClass;
 import Mappings.Mapping;
 import Operators.CartesianProduct;
 import Operators.Helpers;
 import Operators.PowerSet;
+import Recursion.NaryFunction;
+import Recursion.Recursion;
 import Relations.EquivalenceTest;
 
 /**
@@ -13,11 +18,18 @@ import Relations.EquivalenceTest;
  * Please refer to the README for a manual.
  */
 public class Main {
-    public static void main(String[] args) {
-        //Write your code here.
+    public static void main(String[] args)
+        throws NotEquivalenceRelationException,
+        CannotInitialiseSeparateSetsException,
+        ElementNotFoundException {
 
-        EquivalenceTest<Integer> et = new EquivalenceTest<>((x, y) -> y == x + 3);
-        et.initSet(8, 9, 10, 11, 12, 13, 14, 15);
+        EquivalenceTest<Integer> et = new EquivalenceTest<>((x, y) -> (x - y) % 3 == 0);
+        et.initSet(1, 2, 3, 4, 5, 6, 7);
         et.test();
+
+        EquivalenceClass<Integer> ec = new EquivalenceClass<Integer>((x, y) -> (x - y) % 3 == 0);
+        ec.initSet(1, 2, 3, 4, 5, 6);
+        System.out.println(ec.findEquivalenceClasses());
+        System.out.println(ec.findEquivalenceClass(6));
     }
 }
