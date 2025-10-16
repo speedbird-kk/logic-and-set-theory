@@ -57,7 +57,7 @@ public class EquivalenceTest<A> extends RelationOnSet<A, A> {
             + reflexiveTest + symmetricTest + transitiveTest + conclusion);
     }
 
-    private boolean isReflexive() {
+    protected boolean isReflexive() {
         for (A x : setA) {
             if (!relation.test(x, x)) {
                 return false;
@@ -81,14 +81,14 @@ public class EquivalenceTest<A> extends RelationOnSet<A, A> {
         return true;
     }
 
-    private boolean isTransitive() {
+    protected boolean isTransitive() {
         if (relationSet.isEmpty()) {
             getRelationSet();
         }
         
         for (Pair<A, A> x : relationSet) {
             for (Pair<A, A> z : relationSet) {
-                if (x.b() == z.a()) {
+                if (x.b().equals(z.a())) {
                     if (!relationSet.contains(new Pair<>(x.a(), z.b()))) {
                         return false;
                     }

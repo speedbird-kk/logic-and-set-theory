@@ -4,6 +4,8 @@ Helper classes and methods for calculating various operations and testing proper
 
 **DISCLAIMER:** This program is based on the course Logic and Set Theory 2IT60 in its features and concepts, however it is not an official part of the course. The program may contain mistakes.
 
+**NOTE (17/10):** Parts of the manual is currently outdated. New features for orderings have been added and equivalence classes features have been improved. These are not currently included in the manual. It will be updated as soon as possible.
+
 **NOTE (13/10):** Equivalence classes are defined on equivalence relations which are only defined for relations on A (ie. R a subset of A x A). Currently the program allows R on A x B for equivalence classes with no check for equivalence. This will be fixed soon. Feature to find only the equivalence class of a specific element instead of all equivalence classes will also be added soon.
 
 ## Features
@@ -14,6 +16,11 @@ Helper classes and methods for calculating various operations and testing proper
 - Test a mapping for surjection, injection and bijection.
 - Find the image of a mapping on a subdomain.
 - Find the source of a mapping on a subcodomain.
+- (NEW !) Testing a relation for reflexive, irreflexive ordering, quasi-ordering, linear relation, antisymmetric, strictly antisymmetric
+- (NEW !) Find the direct successor of an element in a set for an ordering
+- (NEW !) Find the children of each node of a Hasse diagram for an ordering
+- (NEW !) Find the maximal, minimal elements and maximum and minimum of an ordering
+- (COMING SOON !) Recursion calculator
 
 ## Table of Contents
 - [Getting started](#getting-started)

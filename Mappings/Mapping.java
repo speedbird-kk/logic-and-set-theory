@@ -1,5 +1,6 @@
 package Mappings;
 
+import Exceptions.CannotInitialiseSeparateSetsException;
 import Operators.Pair;
 import Relations.RelationOnSet;
 import java.util.Arrays;
@@ -21,12 +22,12 @@ public class Mapping<A, B> extends RelationOnSet<A, B> {
     }
 
     @SafeVarargs
-    public final void initDomain(A... elements) {
+    public final void initDomain(A... elements) throws CannotInitialiseSeparateSetsException {
         super.initSetA(elements);
     }
 
     @SafeVarargs
-    public final void initCodomain(B... elements) {
+    public final void initCodomain(B... elements) throws CannotInitialiseSeparateSetsException {
         super.initSetB(elements);
     }
     

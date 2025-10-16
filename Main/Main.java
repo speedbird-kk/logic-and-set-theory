@@ -3,12 +3,14 @@ package Main;
 import EquivalenceClass.EquivalenceClass;
 import Exceptions.CannotInitialiseSeparateSetsException;
 import Exceptions.ElementNotFoundException;
+import Exceptions.NotAnOrderingException;
 import Exceptions.NotEquivalenceRelationException;
 import EquivalenceClass.EquivalenceClass;
 import Mappings.Mapping;
 import Operators.CartesianProduct;
 import Operators.Helpers;
 import Operators.PowerSet;
+import Orderings.Orderings;
 import Recursion.NaryFunction;
 import Recursion.Recursion;
 import Relations.EquivalenceTest;
@@ -21,15 +23,24 @@ public class Main {
     public static void main(String[] args)
         throws NotEquivalenceRelationException,
         CannotInitialiseSeparateSetsException,
-        ElementNotFoundException {
+        ElementNotFoundException,
+        NotAnOrderingException {
 
-        EquivalenceTest<Integer> et = new EquivalenceTest<>((x, y) -> (x - y) % 3 == 0);
-        et.initSet(1, 2, 3, 4, 5, 6, 7);
-        et.test();
+        System.out.println("ORDERINGS TEST");
 
-        EquivalenceClass<Integer> ec = new EquivalenceClass<Integer>((x, y) -> (x - y) % 3 == 0);
-        ec.initSet(1, 2, 3, 4, 5, 6);
-        System.out.println(ec.findEquivalenceClasses());
-        System.out.println(ec.findEquivalenceClass(6));
+        Orderings<Integer> o = new Orderings<Integer>((x, y) -> x < y);
+        o.initSet(1, 2, 3, 4, 5, 6);
+        o.test();
+        System.out.println(o.findDirectSuccessors(2));
+        System.out.println(o.maximum(1, 2, 3, 4));
+        System.out.println(o.minimum(1, 2, 3));
+
+        System.out.println("\nEXERCISE 20.8");
+
+        Orderings<Integer> ordering = new Orderings<Integer>((x, y) -> y % x == 0);
+        ordering.initSet(2, 3, 4, 6, 8, 12);
+        System.out.println(ordering.findHasse());
+        System.out.println(ordering.maximalElements(2, 3, 4, 6, 8, 12));
+        System.out.println(ordering.minimalElements(2, 3, 4, 6, 8, 12));
     }
 }
