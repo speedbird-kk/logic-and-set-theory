@@ -13,8 +13,8 @@ import java.util.function.BiPredicate;
 /**
  * Class defining reflexive and irreflexive orderings.
  */
-public class Orderings<A> extends EquivalenceTest<A> {
-    public Orderings(BiPredicate<A, A> relation) {
+public class Ordering<A> extends EquivalenceTest<A> {
+    public Ordering(BiPredicate<A, A> relation) {
         super(relation);
     }
 
@@ -43,11 +43,21 @@ public class Orderings<A> extends EquivalenceTest<A> {
         }
 
         if (properties[0] && properties[1] && properties[3]) {
-            System.out.println("\nSince it is reflexive, transitive and antisymmetric, "
-                + "it is a reflexive ordering.");
+            if (!properties[5]) {
+                System.out.println("\nSince it is reflexive, transitive and antisymmetric, "
+                    + "it is a reflexive ordering.");
+            } else {
+                System.out.println("\nSince it is reflexive, transitive, antisymmetric "
+                    + "and linear, it is a reflexive linear ordering.");
+            }
         } else if (properties[0] && properties[2] && properties[4]) {
-            System.out.println("\nSince it is irreflexive, transitive "
-                + "and strictly antisymmetric, it is an irreflexive ordering");
+            if (!properties[5]) {
+                System.out.println("\nSince it is irreflexive, transitive "
+                    + "and strictly antisymmetric, it is an irreflexive ordering");
+            } else {
+                System.out.println("\nSince it is irreflexive, transitive, "
+                    + "strictly antisymmetric and linear, it is an irreflexive linear ordering.");
+            }
         } else if (properties[0] && properties[1]) {
             System.out.println("\nSince it is reflexive and transitive, it is a quasi-ordering.");
         } else {

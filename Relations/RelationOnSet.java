@@ -32,7 +32,6 @@ public abstract class RelationOnSet<A, B> {
      */
     public void initSetB(@SuppressWarnings("unchecked") B... elements)
         throws CannotInitialiseSeparateSetsException {
-            
         this.setB = new HashSet<>(Arrays.asList(elements));
     }
 
