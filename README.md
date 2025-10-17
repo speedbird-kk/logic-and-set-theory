@@ -4,9 +4,7 @@ Helper classes and methods for calculating various operations and testing proper
 
 **DISCLAIMER:** This program is based on the course Logic and Set Theory 2IT60 in its features and concepts, however it is not an official part of the course. The program may contain mistakes.
 
-**NOTE (17/10):** Parts of the manual is currently outdated. New features for orderings have been added and equivalence classes features have been improved. These are not currently included in the manual. It will be updated as soon as possible.
-
-**NOTE (13/10):** Equivalence classes are defined on equivalence relations which are only defined for relations on A (ie. R a subset of A x A). Currently the program allows R on A x B for equivalence classes with no check for equivalence. This will be fixed soon. Feature to find only the equivalence class of a specific element instead of all equivalence classes will also be added soon.
+**UPDATE (17/10):** Ordering, Lexicographic ordering and Cartesian ordering have been added. Manual has also been modified to include how to use these new features. Please refer to [Ordering](#ordering), [Lexicographic ordering](#lexicographic-ordering) and [Cartesian ordering](#cartesian-ordering) for these. Please note that the [Equivalence classes](#equivalence-classes) and [Equivalence classes for relations on two (power) sets](#equivalence-classes-for-relations-on-two-power-sets) sections in the manual are severely outdated and still need to be updated according to the recent fixes and improvements made to the features concerned.
 
 ## Features
 - Evaluate the cartesian product of two sets.
@@ -20,6 +18,8 @@ Helper classes and methods for calculating various operations and testing proper
 - (NEW !) Find the direct successor of an element in a set for an ordering
 - (NEW !) Find the children of each node of a Hasse diagram for an ordering
 - (NEW !) Find the maximal, minimal elements and maximum and minimum of an ordering
+- (NEW !) Make a lexicographic ordering
+- (NEW !) Make a cartesian ordering
 - (COMING SOON !) Recursion calculator
 
 ## Table of Contents
@@ -27,10 +27,13 @@ Helper classes and methods for calculating various operations and testing proper
 - [Cartesian product](#cartesian-product)
 - [Power sets](#power-sets)
 - [Relation test for equivalence](#relation-test-for-equivalence)
-- [Equivalence classes](#equivalence-classes)
-- [Equivalence classes for relations on two (power) sets](#equivalence-classes-for-relations-on-two-power-sets)
+- [Equivalence classes](#equivalence-classes) (NEEDS UPDATE)
+- [Equivalence classes for relations on two (power) sets](#equivalence-classes-for-relations-on-two-power-sets) (NEEDS UPDATE)
 - [Mapping tests](#mapping-tests)
 - [Image and source](#image-and-source)
+- [Ordering](#ordering)
+- [Lexicographic ordering](#lexicographic-ordering)
+- [Cartesian ordering](#cartesian-ordering)
 
 ## Manual
 
@@ -247,3 +250,178 @@ System.out.println(f.image(x1, x2));
 
 Output:
 `[[1], [1, 2]]`
+
+### Ordering
+
+Orderings can also be defined as a relation using a lambda expression and initialising the set that the ordering is on. The method `.test()` is called to test the relation for transitivity, reflexivity, irreflexivity, antisymmetricity, strict antisymmetricity and linearity.
+
+For example, we define the structure $\langle {1, 2, 3, 4, 5, 6}, < \rangle$ in the following way and run `.test()` on it.
+```Java
+Ordering<Integer> o = new Ordering<Integer>((x, y) -> x < y);
+o.initSet(1, 2, 3, 4, 5, 6);
+o.test();
+```
+
+Output:
+```
+The relation:
+        is transitive
+        is not reflexive
+        is irreflexive
+        is antisymmetric
+        is strictly antisymmetric
+        is linear
+
+Since it is irreflexive, transitive, strictly antisymmetric and linear, it is an irreflexive linear ordering.
+```
+
+Moreover, the direct successors of a specific element in the set can be found with `.findDirectSuccessors()`.
+
+```Java
+System.out.println(o.findDirectSuccessors(2));
+```
+
+Output:
+`[3]`
+
+The maximum and the minimum of a subset can be found similarly with `.maximum()` and `minimum()`.
+```Java
+System.out.println("Maximum: " + o.maximum(1, 2, 3, 4));
+System.out.println("Minimum: " + o.minimum(1, 2, 3));
+```
+
+Output:
+```
+Maximum: 4
+Minimum: 1
+```
+
+We now define a structure $\langle {2, 3, 4, 6, 8, 12}, | \rangle$ from exercise 20.8 as follows.
+```Java
+Ordering<Integer> ordering = new Ordering<Integer>((x, y) -> y % x == 0);
+ordering.initSet(2, 3, 4, 6, 8, 12);
+```
+
+Maximal elements can be found using the `maximalElements()` method and similarly for the minimal elements.
+```Java
+System.out.println("Maximal: " + ordering.maximalElements(2, 3, 4, 6, 8, 12));
+System.out.println("Minimal: " + ordering.minimalElements(2, 3, 4, 6, 8, 12));
+```
+
+Output:
+```
+Maximal: [8, 12]
+Minimal: [2, 3]
+```
+
+The Hasse diagram is represented as a map with key value pairs where the keys represent each node in the Hasse diagram and the values represent the children of the node.
+```Java
+System.out.println(ordering.findHasse());
+```
+
+Output:
+`{2=[4, 6], 3=[6], 4=[8, 12], 6=[12], 8=[], 12=[]}`
+
+### Lexicographic Ordering
+
+Lexicographic orderings are defined with two bi-predicates, corresponding to $R_1$ and $R_2$ for the lexicographic ordering $R_3$. For an alphabetical dictionary ordering, for example, we can use the function `.compareTo()` on strings.
+```Java
+LexicographicOrdering<String, String> lo = new LexicographicOrdering<>(
+    (a, b) -> a.compareTo(b) < 0,
+    (a, b) -> a.compareTo(b) < 0
+);
+```
+
+To initialise the set of pairs $A \times B$ that the lexicographic ordering is on, first create a `CartesianProduct` object and initialise both sets A and B.
+
+```Java
+CartesianProduct<String, String> cp = new CartesianProduct<>();
+cp.initA("a", "b");
+cp.initB("a", "b");
+```
+
+Then, simply pass the `CartesianProduct` object into `initSet()` method of the lexicographic ordering.
+```Java
+lo.initSet(cp);
+```
+
+We can use `.getRelationSet()` to see all the relations in the lexicographic ordering.
+```Java
+System.out.println(lo.getRelationSet());
+```
+
+Output:
+`[((a, a), (a, b)), ((b, a), (b, b)), ((a, a), (b, b)), ((a, a), (b, a)), ((a, b), (b, b)), ((a, b), (b, a))]`
+
+All methods demonstrated in the ordering section (see [Ordering](#ordering)) are available.
+```Java
+lo.test();
+System.out.println("\nHasse: " + lo.findHasse());
+System.out.println("Maximal: " + lo.maximalElements(cp));
+System.out.println("Minimal: " + lo.minimalElements(cp));
+System.out.println("Maximum: " + lo.maximum(cp));
+```
+
+Output:
+```
+The relation:
+        is transitive
+        is not reflexive
+        is irreflexive
+        is antisymmetric
+        is strictly antisymmetric
+        is linear
+
+Since it is irreflexive, transitive, strictly antisymmetric and linear, it is an irreflexive linear ordering.
+
+Hasse: {(a, a)=[(a, b)], (b, b)=[], (a, b)=[(b, a)], (b, a)=[(b, b)]}
+Maximal: [(b, b)]
+Minimal: [(a, a)]
+Maximum: (b, b)
+```
+
+### Cartesian Ordering
+
+Cartesian orderings are instantialised very similarly to lexicographic orderings. (see [Lexicographic Ordering](#lexicographic-ordering)).
+```Java
+CartesianOrdering<String, String> co = new CartesianOrdering<>(
+    (a, b) -> a.compareTo(b) < 0,
+    (a, b) -> a.compareTo(b) < 0
+);
+
+CartesianProduct<String, String> cp = new CartesianProduct<>();
+cp.initA("a", "b", "c");
+cp.initB("a", "b", "c");
+
+co.initSet(cp);
+```
+
+The exact same methods can be called on the `CartesianOrdering` object as lexicographic orderings (see [Lexicographic Ordering](#lexicographic-ordering)).
+
+```Java
+co.test();
+System.out.println("\nRelations: " + co.getRelationSet());
+System.out.println("\nHasse: " + co.findHasse());
+System.out.println("\nMaximal: " + co.maximalElements(cp));
+System.out.println("Minimal: " + co.minimalElements(cp));
+```
+
+Output:
+```
+The relation:
+        is transitive
+        is not reflexive
+        is irreflexive
+        is antisymmetric
+        is strictly antisymmetric
+        is not linear
+
+Since it is irreflexive, transitive and strictly antisymmetric, it is an irreflexive ordering
+
+Relations: [((a, a), (b, c)), ((b, a), (c, c)), ((a, a), (b, b)), ((a, a), (c, c)), ((b, b), (c, c)), ((a, b), (b, c)), ((b, a), (c, b)), ((a, a), (c, b)), ((a, b), (c, c))]
+
+Hasse: {(a, a)=[(b, b), (b, c), (c, b)], (b, b)=[(c, c)], (c, c)=[], (a, b)=[(c, c), (b, c)], (b, c)=[], (a, c)=[], (c, a)=[], (b, a)=[(c, c), (c, b)], (c, b)=[]}
+
+Maximal: [(c, c), (b, c), (a, c), (c, a), (c, b)]
+Minimal: [(a, a), (a, b), (a, c), (c, a), (b, a)]
+```
