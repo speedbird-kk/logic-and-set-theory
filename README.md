@@ -6,6 +6,8 @@ Helper classes and methods for calculating various operations and testing proper
 
 **UPDATE (17/10):** Ordering, Lexicographic ordering and Cartesian ordering have been added. Manual has also been modified to include how to use these new features. Please refer to [Ordering](#ordering), [Lexicographic ordering](#lexicographic-ordering) and [Cartesian ordering](#cartesian-ordering) for these. Please note that the [Equivalence classes](#equivalence-classes) and [Equivalence classes for relations on two (power) sets](#equivalence-classes-for-relations-on-two-power-sets) sections in the manual are severely outdated and still need to be updated according to the recent fixes and improvements made to the features concerned.
 
+Major updates are also coming eventually to fix the structure of the code to conform more to SOLID principles from a programming perspective...
+
 ## Features
 - Evaluate the cartesian product of two sets.
 - Evaluate the power set of a set.

@@ -26,5 +26,13 @@ public class Main {
         /**
          * YOUR CODE HERE.
          */
+
+        Ordering<Integer> r = new Ordering<>((x, y) -> y % x == 0);
+        r.initSet(2, 3, 4, 6);
+
+        System.out.println(r.maximum(2, 3, 6));
+        System.out.println(r.maximum(2, 3, 4, 6));
+        System.out.println(r.maximum(2, 3));
+        System.out.println(r.findHasse());
     }
 }
